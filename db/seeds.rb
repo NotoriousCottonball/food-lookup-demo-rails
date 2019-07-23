@@ -62,7 +62,15 @@ print "\nSeeding..."
 
 dir = File.dirname(File.expand_path(__FILE__))
 lineno = 1
-CSV.foreach(File.join(dir, 'raw-ndb.csv'), 'r:ISO8859-1') do |row|
+
+# CSV.foreach(File.join(dir, 'raw-ndb.csv'), 'r:ISO8859-1') do |row|
+
+# 'db/raw-ndb.csv' was edited in a windows machine with a different character set. These are not read by ruby CSV with UTF-8 encoding.
+# So,added ISO_8859-1 encoding and it worked.
+
+
+
+CSV.foreach(Rails.root.join('db/raw-ndb.csv'), headers: true, encoding: 'ISO8859-1') do |row|
   lineno = $.
 
   next if lineno == 1
